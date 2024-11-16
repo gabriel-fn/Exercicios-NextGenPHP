@@ -1,0 +1,8 @@
+services:
+    php:
+        image: webdevops/php-dev:8.3-alpine
+        working_dir: /exercicio
+        ports:
+            - 8081:80
+        volumes:
+            - .:/exercicio
