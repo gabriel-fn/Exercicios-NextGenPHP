@@ -9,6 +9,7 @@
         "phpunit/phpunit": "^11.4"
     },
     "scripts": {
-        "phpunit": "phpunit"
+        "phpunit": "phpunit",
+        "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html html"
     }
 }

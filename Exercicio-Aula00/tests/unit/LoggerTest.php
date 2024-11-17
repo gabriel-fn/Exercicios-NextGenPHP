@@ -6,8 +6,10 @@ use Logger\Enums\LogLevel;
 use Logger\FileLoggerStorageHandler;
 use Logger\Interfaces\LoggerStorageHandlerInterface;
 use Logger\Logger;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Logger::class)]
 class LoggerTest extends TestCase
 {
     protected LoggerStorageHandlerInterface $fileLoggerStorageHandlerStub; 

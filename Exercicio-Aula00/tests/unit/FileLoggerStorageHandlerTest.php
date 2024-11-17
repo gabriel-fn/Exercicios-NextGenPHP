@@ -4,8 +4,10 @@ namespace tests\unit;
 
 use DateTimeImmutable;
 use Logger\FileLoggerStorageHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(FileLoggerStorageHandler::class)]
 class FileLoggerStorageHandlerTest extends TestCase
 {
     public function testShouldLogInFile()
