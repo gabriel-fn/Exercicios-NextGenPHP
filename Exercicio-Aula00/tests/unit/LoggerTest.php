@@ -2,8 +2,10 @@
 
 namespace tests\unit;
 
+use Logger\Enums\LogLevel;
 use Logger\FileLoggerStorageHandler;
 use Logger\Interfaces\LoggerStorageHandlerInterface;
+use Logger\Logger;
 use PHPUnit\Framework\TestCase;
 
 class LoggerTest extends TestCase
