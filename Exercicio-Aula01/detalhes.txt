@@ -1,0 +1,2 @@
+Optei por colocar as respostar no arquivo README.md para 
+serem apresentadas assim que abrir o diretório da Aula 01.
