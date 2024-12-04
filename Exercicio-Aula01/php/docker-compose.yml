@@ -1,0 +1,8 @@
+services:
+  ubuntu:
+    image: ubuntu:22.04
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - .:/php
