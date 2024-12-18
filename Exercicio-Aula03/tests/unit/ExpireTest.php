@@ -102,4 +102,11 @@ final class ExpireTest extends PHPUnit\Framework\TestCase
         $this->expectException(IntervalMethodNotFoundException::class);
         $this->expires->day(1);
     }
+
+    public function testExpiresComponentShouldDisplayNegativeParameterError()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid negative parameter');
+        $this->expires->days(-2);
+    }
 }
