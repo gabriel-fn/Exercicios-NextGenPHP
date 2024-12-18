@@ -1,5 +1,6 @@
 <?php
 
+use Headers\Response\Exceptions\IntervalMethodNotFoundException;
 use Headers\Response\Expires;
 
 /** 
@@ -94,5 +95,11 @@ final class ExpireTest extends PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expires->days('2');
+    }
+
+    public function testExpiresComponentShouldDisplayMethodError()
+    {
+        $this->expectException(IntervalMethodNotFoundException::class);
+        $this->expires->day(1);
     }
 }
