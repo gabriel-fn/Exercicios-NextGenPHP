@@ -52,7 +52,7 @@ class Validator
         return $this;
     }
 
-    public function validate(mixed $value): bool
+    public function validate(string $value): bool
     {
         try {
             $this->executeValidations($value);
@@ -63,7 +63,7 @@ class Validator
         return true;
     }
 
-    protected function executeValidations(mixed $value)
+    protected function executeValidations(string $value)
     {
         foreach ($this->validations as $validation) {
             $validation->execute($value);

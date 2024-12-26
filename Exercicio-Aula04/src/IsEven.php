@@ -8,7 +8,7 @@ use DifferDev\Interface\ValidationHandler;
 
 class IsEven implements ValidationHandler
 {
-    public function execute(mixed $value): true
+    public function execute(string $value): true
     {
         if ((float)$value % 2) {
             throw new FailValidationException('Value is not even.');

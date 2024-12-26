@@ -4,5 +4,5 @@ namespace DifferDev\Interface;
 
 interface ValidationHandler 
 {
-    public function execute(mixed $value): true;
+    public function execute(string $value): true;
 }
