@@ -34,22 +34,14 @@ final class ValidatorTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    // Trocar o nome deste teste para que rode
-    public function notATestClassValidatorShouldAggregateMultipleValidations(): void
+    public function testClassValidatorShouldAggregateMultipleValidations(): void
     {
-        // Exemplo que deve ser implementado
         $validator = new Validator();
 
-        // Esse é um exemplo você pode criar uma interface completamente diferente
-        // use sua criatividade!
         $validationGroup = $validator->addValidation(new IsInteger())
                                      ->addValidation(new IsGreaterThan(200))
                                      ->addValidation(new IsEven())
                      ;
-
-        /**
-         * O valor passado é inteiro, maior que 200 e par
-         */
         $result = $validationGroup->validate(302);
 
         $this->assertTrue($result);
