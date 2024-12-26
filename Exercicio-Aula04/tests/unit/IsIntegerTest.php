@@ -1,6 +1,7 @@
 <?php
 
 use DifferDev\Exception\FailValidationException;
+use DifferDev\IsInteger;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IsInteger::class)]
