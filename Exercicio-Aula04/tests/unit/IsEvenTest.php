@@ -1,6 +1,7 @@
 <?php
 
 use DifferDev\Exception\FailValidationException;
+use DifferDev\IsEven;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IsEven::class)]
