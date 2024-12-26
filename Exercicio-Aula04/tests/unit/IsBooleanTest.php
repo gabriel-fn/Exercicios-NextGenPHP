@@ -1,6 +1,7 @@
 <?php
 
 use DifferDev\Exception\FailValidationException;
+use DifferDev\IsBoolean;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IsBoolean::class)]
