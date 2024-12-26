@@ -3,8 +3,18 @@ declare(strict_types=1);
 
 namespace DifferDev;
 
+use DifferDev\Exception\FailValidationException;
+use DifferDev\Interface\ValidationHandler;
+
 class Validator
 {
+    /** @var array<ValidationHandler> */
+    protected array $validations;
+
+    public function __construct() {
+        $this->validations = array();
+    }
+
     public static function validateFloat(string $floatValue): bool
     {
         // Regex que valida se é string com número quebrado '3.4'
@@ -34,5 +44,29 @@ class Validator
     public static function validateEven(string $value): bool
     {
         return !((float)$value % 2);
+    }
+
+    public function addValidation(ValidationHandler $validation): Validator 
+    {
+        $this->validations[] = $validation;
+        return $this;
+    }
+
+    public function validate(mixed $value): bool
+    {
+        try {
+            $this->executeValidations($value);
+        } catch (FailValidationException $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function executeValidations(mixed $value)
+    {
+        foreach ($this->validations as $validation) {
+            $validation->execute($value);
+        }
     }
 }
