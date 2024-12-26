@@ -1,6 +1,7 @@
 <?php
 
 use DifferDev\Exception\FailValidationException;
+use DifferDev\IsGreaterThan;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IsGreaterThan::class)]
