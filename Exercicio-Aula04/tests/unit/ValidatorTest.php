@@ -36,7 +36,7 @@ final class ValidatorTest extends \PHPUnit\Framework\TestCase
 
     public function testClassValidatorShouldAggregateMultipleValidations(): void
     {
-        $testValue = 302;
+        $testValue = '302';
 
         $isIntegerMock = $this->createMock(ValidationHandler::class);
         $isIntegerMock->expects($this->once())
