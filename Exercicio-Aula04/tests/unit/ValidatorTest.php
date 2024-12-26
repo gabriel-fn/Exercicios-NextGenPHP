@@ -1,5 +1,6 @@
 <?php
 
+use DifferDev\Interface\ValidationHandler;
 use DifferDev\Validator;
 use PHPUnit\Framework\Attributes\CoversClass;
 
@@ -33,16 +34,35 @@ final class ValidatorTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result1 && $result2 && $result3);
     }
 
-
     public function testClassValidatorShouldAggregateMultipleValidations(): void
     {
+        $testValue = 302;
+
+        $isIntegerMock = $this->createMock(ValidationHandler::class);
+        $isIntegerMock->expects($this->once())
+                      ->method('execute')
+                      ->with($testValue)
+                      ->willReturn(true);
+
+        $isGreaterThanMock = $this->createMock(ValidationHandler::class);
+        $isGreaterThanMock->expects($this->once())
+                          ->method('execute')
+                          ->with($testValue)
+                          ->willReturn(true);
+
+        $isEvenMock = $this->createMock(ValidationHandler::class);
+        $isEvenMock->expects($this->once())
+                   ->method('execute')
+                   ->with($testValue)
+                   ->willReturn(true);
+
         $validator = new Validator();
 
-        $validationGroup = $validator->addValidation(new IsInteger())
-                                     ->addValidation(new IsGreaterThan(200))
-                                     ->addValidation(new IsEven())
-                     ;
-        $result = $validationGroup->validate(302);
+        $validationGroup = $validator->addValidation($isIntegerMock)
+                                     ->addValidation($isGreaterThanMock)
+                                     ->addValidation($isEvenMock);
+
+        $result = $validationGroup->validate($testValue);
 
         $this->assertTrue($result);
     }
