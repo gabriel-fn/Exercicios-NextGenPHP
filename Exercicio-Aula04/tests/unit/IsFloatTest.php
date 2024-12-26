@@ -1,6 +1,7 @@
 <?php
 
 use DifferDev\Exception\FailValidationException;
+use DifferDev\IsFloat;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IsFloat::class)]
