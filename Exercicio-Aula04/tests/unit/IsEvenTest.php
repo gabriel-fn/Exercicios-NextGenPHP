@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(IsEven::class)]
 final class IsEvenTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassIsEvenShouldReturnTrue() 
+    public function testClassIsEvenShouldReturnTrue(): void
     {
         $evenNumber = '300';
         $isEven = new IsEven();
@@ -16,7 +16,7 @@ final class IsEvenTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result);
     }
 
-    public function testClassIsEvenThrowException() 
+    public function testClassIsEvenThrowException(): void
     {
         $this->expectException(FailValidationException::class);
         

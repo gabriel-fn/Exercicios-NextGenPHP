@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(IsFloat::class)]
 final class IsFloatTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassIsFloatShouldReturnTrue() 
+    public function testClassIsFloatShouldReturnTrue(): void
     {
         $floatNumber = '122.44';
         $isFloat = new IsFloat();
@@ -16,7 +16,7 @@ final class IsFloatTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result);
     }
 
-    public function testClassIsFloatThrowException() 
+    public function testClassIsFloatThrowException(): void
     {
         $this->expectException(FailValidationException::class);
         

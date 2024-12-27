@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(IsGreaterThan::class)]
 final class IsGreaterThanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassIsGreaterThanShouldReturnTrue() 
+    public function testClassIsGreaterThanShouldReturnTrue(): void
     {
         $greaterNumber = '302';
         $isGreaterThan = new IsGreaterThan(200);
@@ -16,7 +16,7 @@ final class IsGreaterThanTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result);
     }
 
-    public function testClassIsGreaterThanThrowException() 
+    public function testClassIsGreaterThanThrowException(): void
     {
         $this->expectException(FailValidationException::class);
         

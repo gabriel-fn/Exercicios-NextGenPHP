@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(IsBoolean::class)]
 final class IsBooleanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassIsBooleanShouldReturnTrue() 
+    public function testClassIsBooleanShouldReturnTrue(): void
     {
         $booleanValue = 'true';
         $isBoolean = new IsBoolean();
@@ -16,7 +16,7 @@ final class IsBooleanTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result);
     }
 
-    public function testClassIsBooleanThrowException() 
+    public function testClassIsBooleanThrowException(): void
     {
         $this->expectException(FailValidationException::class);
         

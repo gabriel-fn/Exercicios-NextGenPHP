@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(IsInteger::class)]
 final class IsIntegerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassIsIntegerShouldReturnTrue() 
+    public function testClassIsIntegerShouldReturnTrue(): void
     {
         $integerNumber = '1';
         $isInteger = new IsInteger();
@@ -22,7 +22,7 @@ final class IsIntegerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result2);
     }
 
-    public function testClassIsIntegerThrowException() 
+    public function testClassIsIntegerThrowException(): void
     {
         $this->expectException(FailValidationException::class);
         
