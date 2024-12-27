@@ -9,6 +9,9 @@ use DifferDev\{
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Validator::class)]
+#[CoversClass(IsEven::class)]
+#[CoversClass(IsGreaterThan::class)]
+#[CoversClass(IsInteger::class)]
 final class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testClassValidatorShouldValidateIsInteger(): void
