@@ -1,7 +1,7 @@
 <?php
 namespace integration;
 
-use DifferDev\Adapter\QueryBuilderAdapter;
+use DifferDev\Adapter\QueryMongoDbBuilderAdapter;
 use DifferDev\DTO\SearchDTO;
 use DifferDev\QueryBuilder\QueryBuilder;
 use DifferDev\QueryBuilder\QueryMongoDbBuilder;
@@ -85,7 +85,7 @@ class GetUsersUseCaseTest extends TestCase
 
         $getUsersUseCase = new GetUsersUseCase(
             $searchDTO,
-            new QueryMongoDbBuilder(),
+            new QueryMongoDbBuilderAdapter(new QueryMongoDbBuilder()),
             $this->userRepositoryMock
         );
 
