@@ -9,9 +9,21 @@ class QueryMongoDbBuilder
      */
     protected array $queryPieces = [];
 
+    /**
+     * @var array<string>
+     */
+    protected array $operatorMap = [
+        '=' => '$eq',
+        '!=' => '$ne',
+        '>' => '$gt',
+        '>=' => '$gte',
+        '<' => '$lt',
+        '<=' => '$lte'
+    ];
+
     public function find(string $collectionName): self
     {
-        // implementar...
+        $this->queryPieces['collectionName'] = $collectionName;
         return $this;
     }
 
@@ -22,13 +34,13 @@ class QueryMongoDbBuilder
 
     public function projection(array $projections): self
     {
-        // implementar...
+        $this->queryPieces['options']['projection'] = array_fill_keys($projections, 1);
         return $this;
     }
 
     public function filter(string $field, string $operator, string $value): self
     {
-        // implementar...
+        $this->queryPieces['filter'][$field][$this->operatorMap[$operator]] = $value;
         return $this;
     }
 
