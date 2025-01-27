@@ -15,4 +15,12 @@ class Reservation extends Model
         'reserved_at',
         'returned_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'string',
+            'updated_at' => 'string',
+        ];
+    }
 }
