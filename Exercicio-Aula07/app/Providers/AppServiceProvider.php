@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Architecture\Application\Domain\Mapper\GenericObjectMapperInterface;
 use Architecture\Application\Domain\Repository\ReservationRepositoryInterface;
+use Architecture\Application\UseCase\FindReservationByIdUseCase;
 use Architecture\Infrastructure\Mapper\ObjectMapper;
 use Architecture\Infrastructure\Repository\ReservationRepository;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
             return new ReservationRepository(
                 $app->make(GenericObjectMapperInterface::class)
             );
+        });
+
+        $this->app->bind(FindReservationByIdUseCase::class, function ($app) {
+            return new FindReservationByIdUseCase(
+                $app->make(ReservationRepositoryInterface::class)
+            );        
         });
     }
 
