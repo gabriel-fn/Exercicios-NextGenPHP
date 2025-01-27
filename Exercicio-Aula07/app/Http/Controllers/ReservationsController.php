@@ -74,16 +74,13 @@ class ReservationsController extends Controller
         }
 
         $costPerDay = 4.50;
-        $reservedAt = new \DateTimeImmutable($reservationEntity->reserved_at);
-        $returnedAt = new \DateTimeImmutable($reservationEntity->returned_at);
-        $reservedDays = $returnedAt->diff($reservedAt)->days;
 
-        $reservationCost = 'R$ ' . number_format($reservedDays * $costPerDay, 2, ',', '.');
+        $reservationCost = 'R$ ' . number_format($reservationEntity->getReservedDays() * $costPerDay, 2, ',', '.');
 
         return response()->json([
             'reservation_cost' => $reservationCost,
             'cost_per_day' => 'R$ ' . number_format($costPerDay, 2, ',', '.'),
-            'reservedDays' => $reservedDays,
+            'reservedDays' => $reservationEntity->getReservedDays(),
             'reservation' => $reservationEntity,
         ]);
     }

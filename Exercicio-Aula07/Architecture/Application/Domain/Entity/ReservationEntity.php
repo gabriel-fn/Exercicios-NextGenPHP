@@ -13,4 +13,12 @@ class ReservationEntity
     public string $returned_at;
     public string $created_at;
     public string $updated_at;
+
+    public function getReservedDays(): int
+    {
+        $reservedAt = new \DateTimeImmutable($this->reserved_at);
+        $returnedAt = new \DateTimeImmutable($this->returned_at);
+        $reservedDays = $returnedAt->diff($reservedAt)->days;
+        return $reservedDays;
+    }
 }
