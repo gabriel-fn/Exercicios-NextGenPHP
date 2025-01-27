@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Models\StoredBook;
 use App\Models\User;
+use Architecture\Application\Domain\Exception\NotFoundResourceException;
+use Architecture\Application\UseCase\FindReservationByIdUseCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
 {
+    public function __construct(
+        private FindReservationByIdUseCase $findReservationByIdUseCase
+    )
+    { }
+
     public function create(Request $request): JsonResponse
     {
         $reservation = new Reservation($request->all());
@@ -60,14 +67,15 @@ class ReservationsController extends Controller
     {
         $reservationId = $request->input('reservation_id');
 
-        $reservation = Reservation::find($reservationId);
-        if (null === $reservation) {
-            return response()->json(['error' => 'Reservation not found'], 404);
+        try {
+            $reservationEntity = $this->findReservationByIdUseCase->execute($reservationId);
+        } catch (NotFoundResourceException $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
 
         $costPerDay = 4.50;
-        $reservedAt = new \DateTimeImmutable($reservation->reserved_at);
-        $returnedAt = new \DateTimeImmutable($reservation->returned_at);
+        $reservedAt = new \DateTimeImmutable($reservationEntity->reserved_at);
+        $returnedAt = new \DateTimeImmutable($reservationEntity->returned_at);
         $reservedDays = $returnedAt->diff($reservedAt)->days;
 
         $reservationCost = 'R$ ' . number_format($reservedDays * $costPerDay, 2, ',', '.');
@@ -76,7 +84,7 @@ class ReservationsController extends Controller
             'reservation_cost' => $reservationCost,
             'cost_per_day' => 'R$ ' . number_format($costPerDay, 2, ',', '.'),
             'reservedDays' => $reservedDays,
-            'reservation' => $reservation,
+            'reservation' => $reservationEntity,
         ]);
     }
 }
