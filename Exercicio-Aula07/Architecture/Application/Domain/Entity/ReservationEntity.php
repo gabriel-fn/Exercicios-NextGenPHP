@@ -21,4 +21,10 @@ class ReservationEntity
         $reservedDays = $returnedAt->diff($reservedAt)->days;
         return $reservedDays;
     }
+
+    public function getReservationCost(float $costPerDay): string
+    {
+        $reservationCost = 'R$ ' . number_format($this->getReservedDays() * $costPerDay, 2, ',', '.');
+        return $reservationCost;
+    }
 }

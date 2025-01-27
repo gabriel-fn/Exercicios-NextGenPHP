@@ -74,11 +74,9 @@ class ReservationsController extends Controller
         }
 
         $costPerDay = 4.50;
-
-        $reservationCost = 'R$ ' . number_format($reservationEntity->getReservedDays() * $costPerDay, 2, ',', '.');
-
+        
         return response()->json([
-            'reservation_cost' => $reservationCost,
+            'reservation_cost' => $reservationEntity->getReservationCost($costPerDay),
             'cost_per_day' => 'R$ ' . number_format($costPerDay, 2, ',', '.'),
             'reservedDays' => $reservationEntity->getReservedDays(),
             'reservation' => $reservationEntity,
