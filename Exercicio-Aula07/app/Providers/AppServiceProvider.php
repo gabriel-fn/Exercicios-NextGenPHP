@@ -4,11 +4,14 @@ namespace App\Providers;
 
 use Architecture\Application\Domain\Mapper\GenericObjectMapperInterface;
 use Architecture\Application\Domain\Repository\ReservationRepositoryInterface;
+use Architecture\Application\Domain\Repository\StoredBookRepositoryInterface;
 use Architecture\Application\Domain\Repository\UserRepositoryInterface;
 use Architecture\Application\UseCase\FindReservationByIdUseCase;
+use Architecture\Application\UseCase\FindStoredBookByIdUseCase;
 use Architecture\Application\UseCase\FindUserByIdUseCase;
 use Architecture\Infrastructure\Mapper\ObjectMapper;
 use Architecture\Infrastructure\Repository\ReservationRepository;
+use Architecture\Infrastructure\Repository\StoredBookRepository;
 use Architecture\Infrastructure\Repository\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +38,12 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(StoredBookRepositoryInterface::class, function ($app) {
+            return new StoredBookRepository(
+                $app->make(GenericObjectMapperInterface::class)
+            );
+        });
+
         $this->app->bind(FindReservationByIdUseCase::class, function ($app) {
             return new FindReservationByIdUseCase(
                 $app->make(ReservationRepositoryInterface::class)
@@ -44,6 +53,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FindUserByIdUseCase::class, function ($app) {
             return new FindUserByIdUseCase(
                 $app->make(UserRepositoryInterface::class)
+            );        
+        });
+
+        $this->app->bind(FindStoredBookByIdUseCase::class, function ($app) {
+            return new FindStoredBookByIdUseCase(
+                $app->make(StoredBookRepositoryInterface::class)
             );        
         });
     }
