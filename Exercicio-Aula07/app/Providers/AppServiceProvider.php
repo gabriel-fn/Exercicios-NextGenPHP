@@ -6,6 +6,7 @@ use Architecture\Application\Domain\Mapper\GenericObjectMapperInterface;
 use Architecture\Application\Domain\Repository\ReservationRepositoryInterface;
 use Architecture\Application\Domain\Repository\StoredBookRepositoryInterface;
 use Architecture\Application\Domain\Repository\UserRepositoryInterface;
+use Architecture\Application\UseCase\CreateReservationUseCase;
 use Architecture\Application\UseCase\FindReservationByIdUseCase;
 use Architecture\Application\UseCase\FindStoredBookByIdUseCase;
 use Architecture\Application\UseCase\FindUserByIdUseCase;
@@ -46,6 +47,12 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(FindReservationByIdUseCase::class, function ($app) {
             return new FindReservationByIdUseCase(
+                $app->make(ReservationRepositoryInterface::class)
+            );        
+        });
+
+        $this->app->bind(CreateReservationUseCase::class, function ($app) {
+            return new CreateReservationUseCase(
                 $app->make(ReservationRepositoryInterface::class)
             );        
         });
