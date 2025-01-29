@@ -3,38 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
-use App\Models\StoredBook;
-use App\Models\User;
+use Architecture\Application\Domain\DTO\CreateReservationInputDTO;
 use Architecture\Application\Domain\Exception\NotFoundResourceException;
+use Architecture\Application\UseCase\CreateReservationUseCase;
 use Architecture\Application\UseCase\FindReservationByIdUseCase;
+use Architecture\Application\UseCase\FindStoredBookByIdUseCase;
+use Architecture\Application\UseCase\FindUserByIdUseCase;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use TypeError;
 
 class ReservationsController extends Controller
 {
     public function __construct(
-        private FindReservationByIdUseCase $findReservationByIdUseCase
+        private FindReservationByIdUseCase $findReservationByIdUseCase,
+        private FindUserByIdUseCase $findUserByIdUseCase,
+        private FindStoredBookByIdUseCase $findStoredBookByIdUseCase,
+        private CreateReservationUseCase $createReservationUseCase
     )
     { }
 
     public function create(Request $request): JsonResponse
     {
-        $reservation = new Reservation($request->all());
+        try {
+            $reservationInputDTO = new CreateReservationInputDTO(
+                $request->user_id,
+                $request->stored_book_id,
+                now()->format('Y-m-d H:i:s')
+            );
 
-        if (null === User::find($reservation->user_id)) {
-            return response()->json(['error' => 'User not found'], 404);
+            $this->findUserByIdUseCase->execute($reservationInputDTO->getUserId());
+            $this->findStoredBookByIdUseCase->execute($reservationInputDTO->getStoredBookId());
+        } catch (TypeError $e) {
+            return response()->json(['error' => 'Bad Request'], 400);
+        } catch (NotFoundResourceException $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
 
-        $storedBook = StoredBook::find($reservation->stored_book_id);
-        if (null === $storedBook) {
-            return response()->json(['error' => 'Stored book not found'], 404);
-        }
+        $reservationEntity = $this->createReservationUseCase->execute($reservationInputDTO);
 
-        $reservation->reserved_at = now();
-
-        $reservation->save();
-
-        return response()->json($reservation, JsonResponse::HTTP_CREATED);
+        return response()->json($reservationEntity, JsonResponse::HTTP_CREATED);
     }
 
     public function saveReturn(Request $request): JsonResponse
