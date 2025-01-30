@@ -41,13 +41,17 @@ class ReservationRepository implements ReservationRepositoryInterface
 
     public function update(ReservationEntity $reservationEntity): bool
     {
-        $result = Reservation::where('id', $reservationEntity->id)->update([
-            'user_id' => $reservationEntity->user_id,
-            'stored_book_id' => $reservationEntity->stored_book_id,
-            'reserved_at' => $reservationEntity->reserved_at,
-            'returned_at' => $reservationEntity->returned_at
-        ]);
+        $reservationModel = Reservation::find($reservationEntity->id);
 
-        return $result;
+        if (null === $reservationModel) {
+            return false;
+        }
+
+        $reservationModel->user_id = $reservationEntity->user_id;
+        $reservationModel->stored_book_id = $reservationEntity->stored_book_id;
+        $reservationModel->reserved_at = $reservationEntity->reserved_at;
+        $reservationModel->returned_at = $reservationEntity->returned_at;
+
+        return $reservationModel->save();
     }
 }
