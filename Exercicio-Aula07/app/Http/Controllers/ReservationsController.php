@@ -9,6 +9,7 @@ use Architecture\Application\UseCase\CreateReservationUseCase;
 use Architecture\Application\UseCase\FindReservationByIdUseCase;
 use Architecture\Application\UseCase\FindStoredBookByIdUseCase;
 use Architecture\Application\UseCase\FindUserByIdUseCase;
+use Architecture\Application\UseCase\RegisterReturnReservationUseCase;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class ReservationsController extends Controller
         private FindReservationByIdUseCase $findReservationByIdUseCase,
         private FindUserByIdUseCase $findUserByIdUseCase,
         private FindStoredBookByIdUseCase $findStoredBookByIdUseCase,
-        private CreateReservationUseCase $createReservationUseCase
+        private CreateReservationUseCase $createReservationUseCase,
+        private RegisterReturnReservationUseCase $registerReturnReservationUseCase
     )
     { }
 
@@ -51,27 +53,15 @@ class ReservationsController extends Controller
     public function saveReturn(Request $request): JsonResponse
     {
         $reservationId = $request->input('reservation_id');
-
-        $reservation = Reservation::find($reservationId);
-        if (null === $reservation) {
-            return response()->json(['error' => 'Reservation not found'], 404);
-        }
-
-        if (null !== $reservation->returned_at) {
-            return response()->json(['error' => 'Reservation already returned'], 403);
-        }
-
         $returnDate = $request->input('return_date');
-        if ($returnDate <= $reservation->reserved_at) {
-            return response()->json(['error' => 'Return date must be greater than reserved date'], 403);
+
+        try {
+            $reservationEntity = $this->registerReturnReservationUseCase->execute($reservationId, $returnDate);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
 
-        $reservation->returned_at = $returnDate;
-
-        if (false === $reservation->save()) {
-            return response()->json(['error' => 'Reservation could not be returned'], 500);
-        }
-        return response()->json($reservation, JsonResponse::HTTP_ACCEPTED);
+        return response()->json($reservationEntity, JsonResponse::HTTP_ACCEPTED);
     }
 
     public function getCost(Request $request): JsonResponse
