@@ -20,7 +20,7 @@ class UpdateReservationUseCase
         $result = $this->reservationRepository->update($reservationEntity);
 
         if (false === $result) {
-            throw new Exception('Reservation could not be updated');
+            throw new Exception('Reservation could not be updated', 500);
         }
     }
 }
