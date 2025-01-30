@@ -10,6 +10,7 @@ use Architecture\Application\UseCase\CreateReservationUseCase;
 use Architecture\Application\UseCase\FindReservationByIdUseCase;
 use Architecture\Application\UseCase\FindStoredBookByIdUseCase;
 use Architecture\Application\UseCase\FindUserByIdUseCase;
+use Architecture\Application\UseCase\UpdateReservationUseCase;
 use Architecture\Infrastructure\Mapper\ObjectMapper;
 use Architecture\Infrastructure\Repository\ReservationRepository;
 use Architecture\Infrastructure\Repository\StoredBookRepository;
@@ -53,6 +54,12 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(CreateReservationUseCase::class, function ($app) {
             return new CreateReservationUseCase(
+                $app->make(ReservationRepositoryInterface::class)
+            );        
+        });
+
+        $this->app->bind(UpdateReservationUseCase::class, function ($app) {
+            return new UpdateReservationUseCase(
                 $app->make(ReservationRepositoryInterface::class)
             );        
         });
