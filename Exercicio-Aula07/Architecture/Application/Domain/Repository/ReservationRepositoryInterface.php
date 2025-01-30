@@ -12,4 +12,6 @@ interface ReservationRepositoryInterface
     public function findById(int $reservationId): ?ReservationEntity;
 
     public function create(CreateReservationInputDTO $reservationInputDTO): ReservationEntity;
+
+    public function update(ReservationEntity $reservationEntity): bool;
 }
