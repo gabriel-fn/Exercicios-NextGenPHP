@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Architecture\Application\Domain\Entity;
 
+use Exception;
+
 class ReservationEntity 
 {
     public int $id;
@@ -26,5 +28,16 @@ class ReservationEntity
     {
         $reservationCost = 'R$ ' . number_format($this->getReservedDays() * $costPerDay, 2, ',', '.');
         return $reservationCost;
+    }
+
+    public function canBeReturned(string $returnDate)
+    {
+        if (null !== $this->returned_at) {
+            throw new Exception('Reservation already returned', 403);
+        }
+
+        if ($returnDate <= $this->reserved_at) {
+            throw new Exception('Return date must be greater than reserved date', 403);
+        }
     }
 }
