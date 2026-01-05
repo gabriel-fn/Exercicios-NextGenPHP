@@ -1,0 +1,21 @@
+services:
+    nginx:
+        image: nginx:1.17-alpine
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/html
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx.conf:/etc/nginx/nginx.conf
+
+    phpfpm:
+        build:
+            context: docker
+            dockerfile: dev.Dockerfile
+        environment:
+            XDEBUG_MODE: profile
+        volumes:
+            - .:/var/www/html
+            - ./php.ini:/usr/local/etc/php/php.ini
+            - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            # - ./opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini

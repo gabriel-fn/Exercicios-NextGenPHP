@@ -1,0 +1,12 @@
+{
+    "source": {
+        "directories": [
+            "architecture/"
+        ]
+    },
+    "logs": {
+        "html": "infection/result.html"
+    },
+    "tmpDir": "./tmp",
+    "testFramework": "phpunit"
+}

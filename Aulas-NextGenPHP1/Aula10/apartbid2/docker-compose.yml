@@ -1,0 +1,17 @@
+services:
+    server:
+        image: "webdevops/php-nginx-dev:8.3-alpine"
+        working_dir: "/app"
+        env_file:
+            - .env.docker
+        volumes:
+            - ".:/app"
+        ports:
+            - "${SERVER_DEFAULT_PORT}:80"
+
+    postgres:
+        image: "postgis/postgis:17-3.5-alpine"
+        env_file:
+            - .env.docker
+        ports:
+            - "${DATABASE_DEFAULT_PORT}:5432"

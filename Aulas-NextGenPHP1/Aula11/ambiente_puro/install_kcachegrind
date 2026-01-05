@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Linux
+sudo apt install kcachegrind
+
+# Apple
+brew install qcachegrind --with-graphviz

@@ -1,0 +1,44 @@
+SELECT *
+FROM foo
+WHERE ST_DWithin(foo.geog, ST_MakePoint(?,?)::geography, 5000)
+ORDER BY foo.geog <-> ST_MakePoint(?,?)::geography;
+
+UPDATE public.apartments
+SET latitude  = -23.540330244551043::double precision,
+    longitude = -46.60637687791299::double precision
+WHERE id = 1::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.53887012313072::double precision,
+    longitude = -46.6061189460863::double precision
+WHERE id = 2::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.536199664945954::double precision,
+    longitude = -46.60387926621155::double precision
+WHERE id = 3::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.539689199660373::double precision,
+    longitude = -46.610341289016105::double precision
+WHERE id = 4::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.541641504879962::double precision,
+    longitude = -46.60452791401636::double precision
+WHERE id = 5::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.541950815702748::double precision,
+    longitude = -46.60916637665855::double precision
+WHERE id = 6::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.544068793901772::double precision,
+    longitude = -46.60555878382823::double precision
+WHERE id = 7::bigint;
+
+UPDATE public.apartments
+SET latitude  = -23.535205861705705::double precision,
+    longitude = -46.61070203734113::double precision
+WHERE id = 8::bigint;

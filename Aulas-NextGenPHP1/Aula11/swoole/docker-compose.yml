@@ -1,0 +1,8 @@
+services:
+  server:
+    image: phpswoole/swoole:php8.4-alpine
+    volumes:
+      - .:/app
+    ports:
+      - "8081:80"
+    tty: true

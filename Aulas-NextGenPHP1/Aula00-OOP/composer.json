@@ -1,0 +1,12 @@
+{
+    "name": "differdev/php-next-gen",
+    "autoload": {
+        "psr-4": {
+            "PHPNextGen\\": "src/",
+            "Architecture\\": "architecture/"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^3.7"
+    }
+}

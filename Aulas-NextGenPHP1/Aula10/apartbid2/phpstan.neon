@@ -1,0 +1,9 @@
+parameters:
+    level: 9
+    paths:
+        - ./architecture
+    tmpDir: tmp
+    parallel:
+        maximumNumberOfProcesses: 4
+    stubFiles:
+        - ./phpstan/Eloquent/Model.stub

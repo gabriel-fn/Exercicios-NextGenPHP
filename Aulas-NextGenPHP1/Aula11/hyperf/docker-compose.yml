@@ -1,0 +1,27 @@
+version: '3'
+services:
+  hyperf-skeleton:
+    container_name: hyperf-skeleton
+    image: hyperf-skeleton
+    user: 1000:1000
+    build:
+      context: .
+    volumes:
+      - ./:/opt/www
+    ports:
+      - 9501:9501
+    environment:
+      - APP_ENV=dev
+      - SCAN_CACHEABLE=false
+
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: app
+      MARIADB_ROOT_PASSWORD: 123456
+
+networks:
+  default:
+    name: hyperf-skeleton

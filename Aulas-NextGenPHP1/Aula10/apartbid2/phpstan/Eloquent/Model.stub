@@ -1,0 +1,24 @@
+<?php
+
+namespace Illuminate\Database\Eloquent;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @method Model|null find(int $id)
+ * @method bool save()
+ */
+abstract class Model
+{
+
+    /**
+     * @param array<string, mixed> $attributes
+     * @return void
+     */
+    public function fill(array $attributes) { }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(): array { }
+}

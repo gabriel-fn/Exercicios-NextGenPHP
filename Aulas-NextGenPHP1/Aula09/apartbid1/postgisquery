@@ -1,0 +1,4 @@
+SELECT *
+FROM foo
+WHERE ST_DWithin(foo.geog, ST_MakePoint(?,?)::geography, 5000)
+ORDER BY foo.geog <-> ST_MakePoint(?,?)::geography;

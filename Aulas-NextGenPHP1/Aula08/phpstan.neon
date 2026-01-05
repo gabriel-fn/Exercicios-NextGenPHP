@@ -1,0 +1,16 @@
+parameters:
+    level: 9
+    paths:
+        - app
+        - ArchTests
+    tmpDir: tmp
+    parallel:
+        maximumNumberOfProcesses: 4
+    phpat:
+        ignore_built_in_classes: false
+        show_rule_names: true
+services:
+    -
+        class: ArchTests\CleanArchTest
+        tags:
+            - phpat.test
